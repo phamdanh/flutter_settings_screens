@@ -16,4 +16,4 @@ TextStyle? headerTextStyle(BuildContext context) =>
 TextStyle? subtitleTextStyle(BuildContext context) => Theme.of(context)
     .textTheme
     .subtitle2
-    ?.copyWith(fontSize: 13.0, fontWeight: FontWeight.normal);
+    ?.copyWith(fontSize: 14.0, fontWeight: FontWeight.normal);

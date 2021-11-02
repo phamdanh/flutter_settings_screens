@@ -273,7 +273,7 @@ class SettingsContainer extends StatelessWidget {
     var child = allowScrollInternally ? getList(children) : getColumn(children);
     return Padding(
       padding: EdgeInsets.only(
-        top: 16.0,
+        top: children.length > 1 ? 16.0 : 0,
       ),
       child: Material(
         child: Container(
@@ -352,7 +352,7 @@ class SettingsGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     var elements = <Widget>[
       Container(
-        padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 22.0),
+        padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 22.0, bottom: 5),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
@@ -372,20 +372,26 @@ class SettingsGroup extends StatelessWidget {
         _SettingsTileDivider(),
       ]);
     }
-    elements.addAll(children);
     return Wrap(
       children: <Widget>[
-        Column(
-          children: elements,
-        )
+        ...elements,
+        Card(
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Column(
+              children: children,
+            ),
+          ),
+        ),
       ],
     );
   }
 
   TextStyle groupStyle(BuildContext context) {
     return TextStyle(
-      color: Theme.of(context).colorScheme.secondary,
-      fontSize: 12.0,
+      color: Theme.of(context).colorScheme.primary,
+      fontSize: 13.0,
       fontWeight: FontWeight.bold,
     );
   }
@@ -1832,6 +1838,8 @@ class SimpleRadioSettingsTile extends StatelessWidget {
   /// on change callback for handling the value change
   final OnChanged<String>? onChange;
 
+  final bool showTitles;
+
   SimpleRadioSettingsTile({
     required this.title,
     required this.settingKey,
@@ -1840,6 +1848,7 @@ class SimpleRadioSettingsTile extends StatelessWidget {
     this.enabled = true,
     this.onChange,
     this.subtitle = '',
+    this.showTitles = false
   });
 
   @override
@@ -1851,6 +1860,7 @@ class SimpleRadioSettingsTile extends StatelessWidget {
       selected: selected,
       enabled: enabled,
       onChange: onChange,
+      showTitles: showTitles,
       values: getValues(values),
     );
   }

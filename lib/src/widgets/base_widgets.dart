@@ -82,6 +82,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: Text(title),
       ),
@@ -144,6 +145,7 @@ class __SettingsTileState extends State<_SettingsTile> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      type: MaterialType.card,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -382,6 +384,7 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      type: MaterialType.card,
       child: ListTile(
         leading: widget.leading,
         title: Text(widget.title, style: headerTextStyle(context)),
@@ -424,10 +427,10 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
         ? Row(
             children: <Widget>[
               widget.leading!,
-              Text(widget.title, style: headerTextStyle(context)),
+              Text(' ' + widget.title),
             ],
           )
-        : Text(widget.title, style: headerTextStyle(context));
+        : Text(widget.title);
   }
 
   List<Widget> _addActionWidgets(
@@ -507,7 +510,7 @@ class _SettingsCheckbox extends StatelessWidget {
     return Checkbox(
       value: value,
       onChanged: enabled ? onChanged : null,
-      activeColor: Theme.of(context).colorScheme.secondary,
+      activeColor: Theme.of(context).colorScheme.primary,
     );
   }
 }
@@ -535,7 +538,7 @@ class _SettingsSwitch extends StatelessWidget {
     return Switch.adaptive(
       value: value,
       onChanged: enabled ? onChanged : null,
-      activeColor: Theme.of(context).colorScheme.secondary,
+      activeColor: Theme.of(context).colorScheme.primary,
     );
   }
 }
