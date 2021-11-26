@@ -70,22 +70,23 @@ part of 'settings_widgets.dart';
 class SettingsScreen extends StatelessWidget {
   /// Appbar title in Scaffold.
   final String title;
-
+  final bool showTitle;
   /// Content of the screen, body of the Scaffold.
   final List<Widget> children;
 
   SettingsScreen({
     required this.children,
     this.title = 'Settings',
+    this.showTitle = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
+      appBar: showTitle ? AppBar(
         title: Text(title),
-      ),
+      ) : null,
       body: ListView.builder(
         shrinkWrap: true,
         itemCount: children.length,
@@ -149,28 +150,30 @@ class __SettingsTileState extends State<_SettingsTile> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          ListTile(
-            leading: widget.leading,
-            title: Text(
-              widget.title,
-              style: headerTextStyle(context),
+          OnSubmitHandler(
+            child: ListTile(
+              leading: widget.leading,
+              title: Text(
+                widget.title,
+                style: headerTextStyle(context),
+              ),
+              subtitle: widget.subtitle!.isEmpty
+                  ? null
+                  : Text(
+                      widget.subtitle!,
+                      style: subtitleTextStyle(context),
+                    ),
+              enabled: widget.enabled,
+              onTap: widget.onTap,
+              trailing: Visibility(
+                visible: !widget.showChildBelow,
+                child: widget.child,
+              ),
+              dense: true,
+              // wrap only if the subtitle is longer than 70 characters
+              isThreeLine: (widget.subtitle?.isNotEmpty ?? false) &&
+                  widget.subtitle!.length > 70,
             ),
-            subtitle: widget.subtitle!.isEmpty
-                ? null
-                : Text(
-                    widget.subtitle!,
-                    style: subtitleTextStyle(context),
-                  ),
-            enabled: widget.enabled,
-            onTap: widget.onTap,
-            trailing: Visibility(
-              visible: !widget.showChildBelow,
-              child: widget.child,
-            ),
-            dense: true,
-            // wrap only if the subtitle is longer than 70 characters
-            isThreeLine: (widget.subtitle?.isNotEmpty ?? false) &&
-                widget.subtitle!.length > 70,
           ),
           Visibility(
             visible: widget.showChildBelow,
@@ -385,16 +388,18 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
   Widget build(BuildContext context) {
     return Material(
       type: MaterialType.card,
-      child: ListTile(
-        leading: widget.leading,
-        title: Text(widget.title, style: headerTextStyle(context)),
-        subtitle: Text(
-          widget.subtitle!,
-          style: subtitleTextStyle(context),
+      child: OnSubmitHandler(
+        child: ListTile(
+          leading: widget.leading,
+          title: Text(widget.title, style: headerTextStyle(context)),
+          subtitle: Text(
+            widget.subtitle!,
+            style: subtitleTextStyle(context),
+          ),
+          enabled: widget.enabled,
+          onTap: () => _showWidget(context, widget.children),
+          dense: true,
         ),
-        enabled: widget.enabled,
-        onTap: () => _showWidget(context, widget.children),
-        dense: true,
       ),
     );
   }

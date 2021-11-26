@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 import '../../flutter_settings_screens.dart';
 import '../utils/utils.dart';
@@ -391,7 +392,7 @@ class SettingsGroup extends StatelessWidget {
   TextStyle groupStyle(BuildContext context) {
     return TextStyle(
       color: Theme.of(context).colorScheme.primary,
-      fontSize: 13.0,
+      fontSize: 14,
       fontWeight: FontWeight.bold,
     );
   }
