@@ -277,6 +277,7 @@ class SettingsContainer extends StatelessWidget {
         top: children.length > 1 ? 16.0 : 0,
       ),
       child: Material(
+        type: MaterialType.transparency,
         child: Container(
           padding: EdgeInsets.only(left: leftPadding),
           child: child,
