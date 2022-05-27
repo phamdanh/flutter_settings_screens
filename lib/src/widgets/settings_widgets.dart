@@ -470,6 +470,9 @@ class TextInputSettingsTile extends StatefulWidget {
   /// in focus by default, default = true
   final bool autoFocus;
 
+  /// A Widget that will be displayed in the front of the tile
+  final Widget? leading;
+
   /// on change callback for handling the value change
   final OnChanged<String>? onChange;
 
@@ -498,6 +501,7 @@ class TextInputSettingsTile extends StatefulWidget {
     this.autoValidateMode = AutovalidateMode.onUserInteraction,
     this.autoFocus = true,
     this.onChange,
+    this.leading,
     this.validator,
     this.obscureText = false,
     this.borderColor,
@@ -528,8 +532,11 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
       defaultValue: widget.initialValue,
       builder:
           (BuildContext context, String value, OnChanged<String> onChanged) {
-        _controller.text = value;
+        WidgetsBinding.instance?.addPostFrameCallback((_) {
+          _controller.text = value;
+        });
         return _ModalSettingsTile<String>(
+          leading: widget.leading,
           title: widget.title,
           subtitle: widget.obscureText ? '' : value,
           showConfirmation: true,
