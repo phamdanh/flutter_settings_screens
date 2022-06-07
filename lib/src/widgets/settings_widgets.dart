@@ -136,7 +136,7 @@ class ModalSettingsTile<T> extends StatelessWidget {
   final bool showConfirmation;
   final VoidCallback? onCancel;
   final OnConfirmedCallback? onConfirm;
-
+ final Function? onFocused;
   ModalSettingsTile({
     required this.title,
     required this.children,
@@ -146,6 +146,7 @@ class ModalSettingsTile<T> extends StatelessWidget {
     this.showConfirmation = false,
     this.onCancel,
     this.onConfirm,
+    this.onFocused
   });
 
   @override
@@ -159,6 +160,7 @@ class ModalSettingsTile<T> extends StatelessWidget {
       onConfirm: onConfirm,
       showConfirmation: showConfirmation,
       children: children,
+      onFocused: onFocused
     );
   }
 }

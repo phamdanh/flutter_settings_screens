@@ -71,6 +71,8 @@ class SettingsScreen extends StatelessWidget {
   /// Appbar title in Scaffold.
   final String title;
   final bool showTitle;
+  /// Scroll Controller of list view
+  final ScrollController? controller;
   /// Content of the screen, body of the Scaffold.
   final List<Widget> children;
 
@@ -78,6 +80,7 @@ class SettingsScreen extends StatelessWidget {
     required this.children,
     this.title = 'Settings',
     this.showTitle = true,
+    this.controller
   });
 
   @override
@@ -88,6 +91,7 @@ class SettingsScreen extends StatelessWidget {
         title: Text(title),
       ) : null,
       body: ListView.builder(
+        controller: controller,
         shrinkWrap: true,
         itemCount: children.length,
         itemBuilder: (BuildContext context, int index) {
@@ -362,7 +366,7 @@ class _ModalSettingsTile<T> extends StatefulWidget {
   /// automatically. However you can choose to modify them as per your need by referencing
   /// the values from the callback & updating
   final OnConfirmedCallback? onConfirm;
-
+  final Function? onFocused;
   _ModalSettingsTile({
     required this.title,
     required this.children,
@@ -372,6 +376,7 @@ class _ModalSettingsTile<T> extends StatefulWidget {
     this.showConfirmation = false,
     this.onCancel,
     this.onConfirm,
+    this.onFocused
   });
 
   @override
@@ -389,6 +394,7 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
     return Material(
       type: MaterialType.card,
       child: OnSubmitHandler(
+        onFocused: () { widget.onFocused?.call(); },
         child: ListTile(
           leading: widget.leading,
           title: Text(widget.title, style: headerTextStyle(context)),
