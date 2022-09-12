@@ -274,17 +274,12 @@ class SettingsContainer extends StatelessWidget {
 
   Widget _buildChild() {
     var child = allowScrollInternally ? getList(children) : getColumn(children);
-    return Padding(
-      padding: EdgeInsets.only(
-        top: children.length > 1 ? 16.0 : 0,
-      ),
-      child: Material(
+    return Material(
         type: MaterialType.transparency,
         child: Container(
           padding: EdgeInsets.only(left: leftPadding),
           child: child,
         ),
-      ),
     );
   }
 
@@ -394,9 +389,7 @@ class SettingsGroup extends StatelessWidget {
 
   TextStyle groupStyle(BuildContext context) {
     return TextStyle(
-      color: Theme.of(context).colorScheme.primary,
-      fontSize: 14,
-      fontWeight: FontWeight.bold,
+      fontSize: 15,
     );
   }
 }
@@ -534,7 +527,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
       defaultValue: widget.initialValue,
       builder:
           (BuildContext context, String value, OnChanged<String> onChanged) {
-        WidgetsBinding.instance?.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           _controller.text = value;
         });
         return _ModalSettingsTile<String>(
@@ -627,7 +620,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
 
   void _onSave(String? newValue, OnChanged<String> onChanged) {
     if (newValue == null) return;
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       onChanged(newValue);
       widget.onChange?.call(newValue);
     });

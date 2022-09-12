@@ -150,7 +150,7 @@ class __SettingsTileState extends State<_SettingsTile> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      type: MaterialType.card,
+      type: MaterialType.transparency,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -392,7 +392,7 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      type: MaterialType.card,
+      type: MaterialType.transparency,
       child: OnSubmitHandler(
         onFocused: () { widget.onFocused?.call(); },
         child: ListTile(
