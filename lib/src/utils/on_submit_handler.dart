@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 class OnSubmitHandler extends StatelessWidget {
   final Widget child;
   final Function? onFocused;
-  const OnSubmitHandler({Key? key, required this.child, this.onFocused}) : super(key: key);
+  final Function(bool)? onFocusChange;
+
+  const OnSubmitHandler({Key? key, required this.child, this.onFocused, this.onFocusChange})
+      : super(key: key);
 
   KeyEventResult _onKeyHandler(FocusNode node, RawKeyEvent event) {
     if (event is RawKeyUpEvent && event.logicalKey == LogicalKeyboardKey.select) {
@@ -42,6 +45,7 @@ class OnSubmitHandler extends StatelessWidget {
     return Focus(
       canRequestFocus: false,
       onFocusChange: (focused) {
+        onFocusChange?.call(focused);
         if(focused) onFocused?.call();
       },
       onKey: _onKeyHandler,
