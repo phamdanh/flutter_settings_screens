@@ -581,6 +581,7 @@ class _SettingsRadio<T> extends StatelessWidget {
     return Radio<T>(
       groupValue: groupValue,
       value: value,
+      autofocus: groupValue == value,
       onChanged: enabled ? onChanged : null,
     );
   }

@@ -377,7 +377,7 @@ class SettingsGroup extends StatelessWidget {
         Card(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
             child: Column(
               children: children,
             ),
